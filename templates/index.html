@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Calculator</title>
+  <link rel="stylesheet"
+          href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.css"/>
+  <link href="/static/calculator.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="form-group">
+    <label for="result"></label>
+    <input type="text" class="form-control" id="result-display">
+  </div>
+
+  <div class="btn-group btn-group-lg">
+    <button type="button" class="btn btn-default" id="clear">AC</button> <!-- Returns result displayed to zero -->
+    <button type="button" class="btn btn-default" id="negative">+/-</button> <!-- Makes number negative (unless zero, if already negative makes num positive) -->
+    <button type="button" class="btn btn-default" id="percentage">%</button>
+    <button type="button" class="btn btn-default" id="divide">/</button>
+  </div><br>
+
+  <div class="btn-group btn-group-lg">
+    <button type="button" name="number" value="7" class="btn btn-default number" id="7">7</button>
+    <button type="button" name="number" value="7" class="btn btn-default number" id="8">8</button>
+    <button type="button" name="number" value="7" class="btn btn-default number" id="9">9</button>
+    <button type="button" class="btn btn-default" id="multiply">*</button>
+  </div><br>
+
+  <div class="btn-group btn-group-lg">
+    <button type="button" class="btn btn-default" id="4">4</button>
+    <button type="button" class="btn btn-default" id="5">5</button>
+    <button type="button" class="btn btn-default" id="6">6</button>
+    <button type="button" class="btn btn-default" id="subtract">-</button>
+  </div><br>
+
+  <div class="btn-group btn-group-lg">
+    <button type="button" class="btn btn-default" id="1">1</button>
+    <button type="button" class="btn btn-default" id="2">2</button>
+    <button type="button" class="btn btn-default" id="3">3</button>
+    <button type="button" class="btn btn-default" id="add">+</button> <!-- Adds last number to current result, if pressed again acts as += -->
+  </div><br>
+
+  <div class="btn-group btn-group-lg">
+    <button type="button" class="btn btn-default" id="0">0</button>
+    <button type="button" class="btn btn-default" id="decimal">.</button>
+    <button type="button" class="btn btn-default" id="equals">=</button> <!-- Returns current result -->
+  </div>
+
+<!--   ToDo:
+  -add place to display results/buttons pressed
+  -button sizing needs to be uniform -->
+
+
+
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="http://code.jquery.com/jquery.js"></script>
+  <script src="/static/calc.js"></script>
+
+
+
+
+
+</body>
+</html>
