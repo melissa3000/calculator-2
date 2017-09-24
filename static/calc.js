@@ -19,14 +19,14 @@ $(document).ready(function() {
 
 var previousNum = "0";
 var currentNum = "0";
-var operation = 0;
+var operation = "";
+var result;
 
 
 
 function clear() {
   $("#clear").click(function(){
     currentNum = "0";
-    // console.log("currentNum: " + currentNum);
     document.getElementById("result-display").value = currentNum;
   });
 }
@@ -127,56 +127,67 @@ function addDecimal() {
 
   $("#decimal").click(function(){
 
-    if (currentNum.length == 0) {
+    if (currentNum.indexOf("." ) !== -1) {
+        currentNum = currentNum;
+    } else if ((eval(currentNum) == 0) && (currentNum.indexOf(".") == -1)) {
       currentNum = "0.";
     } else {
-      if (currentNum.indexOf("." == -1)) {
         currentNum = currentNum + ".";
-      }
     }
-    // if current number does already have a decimal, do not change current number
-    // if (currentNum.indexOf("." !== -1)) {
-    //   currentNum = currentNum;
-
-    //   // console.log("has decimal");
-    //   // console.log(currentNum);
-    //   // return false;
-    // } else if
-
-    // if current is 0 and does not already contain a decimal
-    // if ((eval(currentNum) == 0) && (currentNum.indexOf("." == -1))) {
-    //   currentNum = "0.";
-    // // } else if (currentNum.indexOf("." !== -1)) {
-    // //   currentNum = currentNum;
-    // }
-
-    // else {
-    //   currentNum += ".";
-    // }
-    // document.getElementById("result-display").value = currentNum;
+      document.getElementById("result-display").value = currentNum;
     });
-  document.getElementById("result-display").value = currentNum;
-
 }
+
 
 function positiveNegative() {
   // change from positive to neg or vice versa on display
+  $("#negative").click(function() {
+    if (currentNum.indexOf("-") == -1) {
+      currentNum = "-" + currentNum;
+    } else {
+      currentNum = currentNum.substring(1);
+    }
+    document.getElementById("result-display").value = currentNum;
+  });
 }
 
+
+//This doesn't work yet
 function operate() {
   // perform mathematical operation when operator button clicked
+  $("#add").click(function() {
+    operation = "addition";
+    previousNum = currentNum;
+    currentNum = "0";
+    // addition(previousNum, currentNum);
+  });
+
 }
+
 
 function calculate() {
   // calculate result when equal sign is pressed
+  $("#equals").click(function() {
+    if (operation === "addition"){
+      addition(parseInt(previousNum), parseInt(currentNum));
+      document.getElementById("result-display").value = result;
+    }
+  });
+
+
+}
+
+
+function addition(x, y) {
+  result = x + y;
 }
 
 
 clear();
-
-// compute();
-
 addNum();
 addDecimal();
+positiveNegative();
+operate();
+calculate();
 
 });
