@@ -1,43 +1,48 @@
-import os
+# import os
 
-from flask import Flask, request, render_template, jsonify
-from flask_debugtoolbar import DebugToolbarExtension
-
-
-
+from flask import Flask, render_template, session, g
+# from flask_debugtoolbar import DebugToolbarExtension
 
 
 app = Flask(__name__)
 
+JS_TESTING_MODE = False
 
 # Required to use Flask sessions and the debug toolbar
-app.secret_key = "ABC"
+# app.secret_key = "ABC"
 
+
+@app.before_request
+def add_tests():
+    g.jasmine_tests = JS_TESTING_MODE
 
 
 @app.route("/")
 def index():
     """Return home page."""
 
-
     return render_template("index.html")
 
 
 
 
-@app.route("/error")
-def error():
-    raise Exception("Error!")
+# @app.route("/error")
+# def error():
+#     raise Exception("Error!")
 
 
 
 if __name__ == "__main__":
-    # We have to set debug=True here, since it has to be True at the
-    # point that we invoke the DebugToolbarExtension
-    app.debug = True
+    # Only True when using debug toolbar, turn off for deployment
+    # app.debug = True
 
     # Use the DebugToolbar before deployment only
-    DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
+
+    # For Jasmine testing
+    import sys
+    if sys.argv[-1] == "jstest":
+        JS_TESTING_MODE = True
 
     app.run(host="0.0.0.0")
 

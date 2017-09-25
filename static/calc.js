@@ -1,12 +1,9 @@
 // ToDo:
 // functions needed (onclick):
-// - fix decimal function - allows multiple decimals and doesn't allow initial decimal
-// -when pos neg +- clicked, add to display
-
-
-// -when operator button clicked, capture number from display field
+// - fix decimal function - starting a number with decimnal doesn't work correctly
 // -add error handling if user tries to divide by zero - display shows "Error"
-// -perform calculation when = is clicked
+// -Continue to add functionality
+// -add ability to string multiple operations together
 
 
 
@@ -14,7 +11,8 @@
 
 "use strict";
 
-$(document).ready(function() {
+// Commented (document).ready line below out for Jasmine testing
+// $(document).ready(function() {
 
 
 var previousNum = "0";
@@ -218,18 +216,22 @@ function calculate() {
 
 function addition(x, y) {
   result = x + y;
+  return result;
 }
 
 function subtraction(x, y) {
   result = x - y;
+  return result;
 }
 
 function multiply(x, y) {
   result = x * y;
+  return result;
 }
 
 function divide(x, y) {
   result = x / y;
+  return result;
 }
 
 
@@ -243,4 +245,8 @@ operate();
 calculate();
 percentage();
 
-});
+// });
+
+
+
+
