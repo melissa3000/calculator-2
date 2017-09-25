@@ -117,6 +117,15 @@ function addNum() {
     }
     document.getElementById("result-display").value = currentNum;
     });
+
+  $("#0").click(function(){
+    if ((eval(currentNum) == 0) && (currentNum.indexOf("." == -1))) {
+      currentNum = "0";
+    } else {
+      currentNum += "0";
+    }
+    document.getElementById("result-display").value = currentNum;
+    });
 }
 
 
@@ -151,6 +160,13 @@ function positiveNegative() {
   });
 }
 
+function percentage() {
+    $("#percentage").click(function() {
+      currentNum = parseInt(currentNum) / 100;
+      document.getElementById("result-display").value = currentNum;
+  });
+}
+
 
 //This doesn't work yet
 function operate() {
@@ -159,7 +175,21 @@ function operate() {
     operation = "addition";
     previousNum = currentNum;
     currentNum = "0";
-    // addition(previousNum, currentNum);
+  });
+  $("#subtract").click(function() {
+    operation = "subtraction";
+    previousNum = currentNum;
+    currentNum = "0";
+  });
+  $("#multiply").click(function() {
+    operation = "multiplication";
+    previousNum = currentNum;
+    currentNum = "0";
+  });
+  $("#divide").click(function() {
+    operation = "division";
+    previousNum = currentNum;
+    currentNum = "0";
   });
 
 }
@@ -171,9 +201,17 @@ function calculate() {
     if (operation === "addition"){
       addition(parseInt(previousNum), parseInt(currentNum));
       document.getElementById("result-display").value = result;
+    } else if (operation === "subtraction"){
+      subtraction(parseInt(previousNum), parseInt(currentNum));
+      document.getElementById("result-display").value = result;
+    } else if (operation === "multiplication"){
+      multiply(parseInt(previousNum), parseInt(currentNum));
+      document.getElementById("result-display").value = result;
+    } else if (operation === "division"){
+      divide(parseInt(previousNum), parseInt(currentNum));
+      document.getElementById("result-display").value = result;
     }
   });
-
 
 }
 
@@ -182,6 +220,20 @@ function addition(x, y) {
   result = x + y;
 }
 
+function subtraction(x, y) {
+  result = x - y;
+}
+
+function multiply(x, y) {
+  result = x * y;
+}
+
+function divide(x, y) {
+  result = x / y;
+}
+
+
+
 
 clear();
 addNum();
@@ -189,5 +241,6 @@ addDecimal();
 positiveNegative();
 operate();
 calculate();
+percentage();
 
 });
