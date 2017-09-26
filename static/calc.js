@@ -1,9 +1,8 @@
 // ToDo:
 // functions needed (onclick):
 // - fix decimal function - starting a number with decimnal doesn't work correctly
-// -add error handling if user tries to divide by zero - display shows "Error"
-// -Continue to add functionality
-// -add ability to string multiple operations together
+// - add ability to chain multiple operations together (x + y + z = )
+// - refactor addNum function to be more concise
 
 
 
@@ -19,22 +18,50 @@ var previousNum = "0";
 var currentNum = "0";
 var operation = "";
 var result;
+var queuedOperation = [];
+var calculationFinished = false;
 
 
 
-function clear() {
+function clearDisplay() {
   $("#clear").click(function(){
     currentNum = "0";
+    // previousNum = "0";
+    calculationFinished = true;
+    // operation = operations.none;
     document.getElementById("result-display").value = currentNum;
+//
+
   });
 }
 
+// function clearPreviousResult() {
+//   if (calculationFinished) {
+//     document.getElementById("result-display").value = "0";
+//     calculationFinished = false;
+//   }
+// }
 
 
+function chainOperations() {
+
+  $('button').click(function() {
+
+    var op = $(this).attr("value");
+    if (op === "clear" || op === "equals") {
+      queuedOperation = [];
+    } else if (op === "add" || op === "subtract" || op === "divide" || op === "multiply") {
+    queuedOperation.push(op);
+    console.log("queuedOperation: " +  queuedOperation);
+
+    }
+  });
+}
+
+  // Make this function more concise
 function addNum() {
   // add number to display
 
-  // Make this more concise
   $("#1").click(function(){
     if ((eval(currentNum) == 0) && (currentNum.indexOf("." == -1))) {
       currentNum = "1";
@@ -126,6 +153,13 @@ function addNum() {
     });
 }
 
+// $('button').click(function() {
+//   currentNum = $(this).attr("value");
+//   // console.log("x: " + x);
+//   // console.log("button value: " + $(this).attr("value"));
+//   document.getElementById("result-display").value = currentNum;
+// });
+
 
 
 
@@ -136,7 +170,7 @@ function addDecimal() {
 
     if (currentNum.indexOf("." ) !== -1) {
         currentNum = currentNum;
-    } else if ((eval(currentNum) == 0) && (currentNum.indexOf(".") == -1)) {
+    } else if ((eval(currentNum) === 0) && (currentNum.indexOf(".") == -1)) {
       currentNum = "0.";
     } else {
         currentNum = currentNum + ".";
@@ -144,6 +178,8 @@ function addDecimal() {
       document.getElementById("result-display").value = currentNum;
     });
 }
+
+
 
 
 function positiveNegative() {
@@ -165,14 +201,36 @@ function percentage() {
   });
 }
 
+// var operations = {
+//   none: function(a, b) { return b; },
+//   addition: function(a, b) { return a + b; },
+//   subtraction: function(a, b) { return a - b; },
+//   multiply: function(a, b) { return a * b; },
+//   divide: function(a, b) { return a / b; }
+// };
 
-//This doesn't work yet
+// function operate(command) {
+//   var display = document.getElementById('result-display');
+//   calculate();
+//   previousNum = display.value;
+//   if (operations.hasOwnProperty(command))
+//     operation = operations[command];
+// }
+
+// function calculate() {
+//   var display = document.getElementById('result-display');
+//   display.value = operation(+previousNum, +display.value);
+//   operation = operations.none;
+// }
+
 function operate() {
-  // perform mathematical operation when operator button clicked
   $("#add").click(function() {
     operation = "addition";
     previousNum = currentNum;
     currentNum = "0";
+
+    // addition(parseInt(previousNum), parseInt(currentNum));
+    // currentNum = toString(result);
   });
   $("#subtract").click(function() {
     operation = "subtraction";
@@ -189,7 +247,6 @@ function operate() {
     previousNum = currentNum;
     currentNum = "0";
   });
-
 }
 
 
@@ -198,15 +255,19 @@ function calculate() {
   $("#equals").click(function() {
     if (operation === "addition"){
       addition(parseInt(previousNum), parseInt(currentNum));
+      currentNum = result;
       document.getElementById("result-display").value = result;
     } else if (operation === "subtraction"){
       subtraction(parseInt(previousNum), parseInt(currentNum));
+      currentNum = result;
       document.getElementById("result-display").value = result;
     } else if (operation === "multiplication"){
       multiply(parseInt(previousNum), parseInt(currentNum));
+      currentNum = result;
       document.getElementById("result-display").value = result;
     } else if (operation === "division"){
       divide(parseInt(previousNum), parseInt(currentNum));
+      currentNum = result;
       document.getElementById("result-display").value = result;
     }
   });
@@ -230,20 +291,25 @@ function multiply(x, y) {
 }
 
 function divide(x, y) {
+  if (y === 0){
+    result = "Error";
+  } else {
   result = x / y;
   return result;
+  }
 }
 
 
 
 
-clear();
+clearDisplay();
 addNum();
 addDecimal();
 positiveNegative();
 operate();
 calculate();
 percentage();
+chainOperations();
 
 // });
 
