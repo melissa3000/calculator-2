@@ -1,7 +1,6 @@
 // ToDo:
 // functions needed (onclick):
 // - fix decimal function - starting a number with decimnal doesn't work correctly
-// - add ability to chain multiple operations together (x + y + z = )
 // - refactor addNum function to be more concise
 
 
@@ -18,17 +17,12 @@ var previousNum = "0";
 var currentNum = "0";
 var operation = "";
 var result;
-// var queuedOperation = [];
-// var calculationFinished = false;
 var numsToOperate = '';
 
 
 function clearDisplay() {
   $("#clear").click(function(){
     currentNum = "0";
-    // previousNum = "0";
-    // calculationFinished = true;
-    // operation = operations.none;
     document.getElementById("result-display").value = currentNum;
   });
 }
@@ -41,23 +35,10 @@ function calculateResult(numsToOperate){
     document.getElementById("result-display").value = result;
 }
 
+
 function chainOperations() {
 
-  // $('button').click(function() {
-
-  //   var op = $(this).attr("value");
-  //   if (op === "clear" || op === "equals") {
-  //     queuedOperation = [];
-  //   } else if (op === "add" || op === "subtract" || op === "divide" || op === "multiply") {
-
-  //   queuedOperation.push(op);
-  //   console.log("queuedOperation: " +  queuedOperation);
-
-  //   }
-  // });
-
   $('button').click(function() {
-
     var op = $(this).attr("value");
       if (op === "equals") {
         calculateResult(numsToOperate);
@@ -75,10 +56,6 @@ function chainOperations() {
   });
 
 }
-
-
-
-//if user enters *, /, or = go ahead and evaluate, otherwise continue to add to the queue
 
   // Make this function more concise
 function addNum() {
@@ -114,85 +91,41 @@ function addNum() {
     // });
 
   $("#2").click(function(){
-    if ((eval(currentNum) == 0) && (currentNum.indexOf("." == -1))) {
-      currentNum = "2";
-    } else {
-      currentNum += "2";
-    }
-    document.getElementById("result-display").value = currentNum;
-    });
+    numClick("2");
+  });
 
   $("#3").click(function(){
-    if ((eval(currentNum) == 0) && (currentNum.indexOf("." == -1))) {
-      currentNum = "3";
-    } else {
-      currentNum += "3";
-    }
-    document.getElementById("result-display").value = currentNum;
-    });
+    numClick("3");
+  });
 
   $("#4").click(function(){
-    if ((eval(currentNum) == 0) && (currentNum.indexOf("." == -1))) {
-      currentNum = "4";
-    } else {
-      currentNum += "4";
-    }
-    document.getElementById("result-display").value = currentNum;
-    });
+    numClick("4");
+  });
 
   $("#5").click(function(){
-    if ((eval(currentNum) == 0) && (currentNum.indexOf("." == -1))) {
-      currentNum = "5";
-    } else {
-      currentNum += "5";
-    }
-    document.getElementById("result-display").value = currentNum;
-    });
+    numClick("5");
+  });
 
   $("#6").click(function(){
-    if ((eval(currentNum) == 0) && (currentNum.indexOf("." == -1))) {
-      currentNum = "6";
-    } else {
-      currentNum += "6";
-    }
-    document.getElementById("result-display").value = currentNum;
-    });
+    numClick("6");
+  });
 
   $("#7").click(function(){
-    if ((eval(currentNum) == 0) && (currentNum.indexOf("." == -1))) {
-      currentNum = "7";
-    } else {
-      currentNum += "7";
-    }
-    document.getElementById("result-display").value = currentNum;
-    });
+    numClick("7");
+  });
 
   $("#8").click(function(){
-    if ((eval(currentNum) == 0) && (currentNum.indexOf("." == -1))) {
-      currentNum = "8";
-    } else {
-      currentNum += "8";
-    }
-    document.getElementById("result-display").value = currentNum;
-    });
+    numClick("8");
+  });
 
   $("#9").click(function(){
-    if ((eval(currentNum) == 0) && (currentNum.indexOf("." == -1))) {
-      currentNum = "9";
-    } else {
-      currentNum += "9";
-    }
-    document.getElementById("result-display").value = currentNum;
-    });
+    numClick("9");
+  });
 
   $("#0").click(function(){
-    if ((eval(currentNum) == 0) && (currentNum.indexOf("." == -1))) {
-      currentNum = "0";
-    } else {
-      currentNum += "0";
-    }
-    document.getElementById("result-display").value = currentNum;
-    });
+    numClick("0");
+  });
+
 }
 
 
