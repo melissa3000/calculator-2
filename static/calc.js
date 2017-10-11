@@ -18,58 +18,100 @@ var previousNum = "0";
 var currentNum = "0";
 var operation = "";
 var result;
-var queuedOperation = [];
-var calculationFinished = false;
-
+// var queuedOperation = [];
+// var calculationFinished = false;
+var numsToOperate = '';
 
 
 function clearDisplay() {
   $("#clear").click(function(){
     currentNum = "0";
     // previousNum = "0";
-    calculationFinished = true;
+    // calculationFinished = true;
     // operation = operations.none;
     document.getElementById("result-display").value = currentNum;
-//
-
   });
 }
 
-// function clearPreviousResult() {
-//   if (calculationFinished) {
-//     document.getElementById("result-display").value = "0";
-//     calculationFinished = false;
-//   }
-// }
 
+function calculateResult(numsToOperate){
+
+    result = eval(numsToOperate);
+    console.log(result);
+    document.getElementById("result-display").value = result;
+}
 
 function chainOperations() {
+
+  // $('button').click(function() {
+
+  //   var op = $(this).attr("value");
+  //   if (op === "clear" || op === "equals") {
+  //     queuedOperation = [];
+  //   } else if (op === "add" || op === "subtract" || op === "divide" || op === "multiply") {
+
+  //   queuedOperation.push(op);
+  //   console.log("queuedOperation: " +  queuedOperation);
+
+  //   }
+  // });
 
   $('button').click(function() {
 
     var op = $(this).attr("value");
-    if (op === "clear" || op === "equals") {
-      queuedOperation = [];
-    } else if (op === "add" || op === "subtract" || op === "divide" || op === "multiply") {
-    queuedOperation.push(op);
-    console.log("queuedOperation: " +  queuedOperation);
+      if (op === "equals") {
+        calculateResult(numsToOperate);
+        numsToOperate = "";
+      } else if (op === "clear") {
+      numsToOperate = "";
+    } else {
+
+    // queuedOperation.push(op);
+    // console.log("queuedOperation: " +  queuedOperation);
+    numsToOperate += op;
+    console.log("numsToOperate: " + numsToOperate);
 
     }
   });
+
 }
+
+
+
+//if user enters *, /, or = go ahead and evaluate, otherwise continue to add to the queue
 
   // Make this function more concise
 function addNum() {
   // add number to display
 
-  $("#1").click(function(){
+  function numClick(number) {
+
     if ((eval(currentNum) == 0) && (currentNum.indexOf("." == -1))) {
-      currentNum = "1";
+      currentNum = number;
     } else {
-      currentNum += "1";
+      currentNum += number;
     }
     document.getElementById("result-display").value = currentNum;
-    });
+
+  }
+
+
+// event.target.id   to get the number values from the button click
+
+// stackoverflow.com/a/35936912/313756
+
+
+
+  $("#1").click(function(){
+    numClick("1");
+  });
+    // if ((eval(currentNum) == 0) && (currentNum.indexOf("." == -1))) {
+    //   currentNum = "1";
+    // } else {
+    //   currentNum += "1";
+    // }
+    // document.getElementById("result-display").value = currentNum;
+    // });
 
   $("#2").click(function(){
     if ((eval(currentNum) == 0) && (currentNum.indexOf("." == -1))) {
@@ -153,14 +195,6 @@ function addNum() {
     });
 }
 
-// $('button').click(function() {
-//   currentNum = $(this).attr("value");
-//   // console.log("x: " + x);
-//   // console.log("button value: " + $(this).attr("value"));
-//   document.getElementById("result-display").value = currentNum;
-// });
-
-
 
 
 function addDecimal() {
@@ -201,78 +235,57 @@ function percentage() {
   });
 }
 
-// var operations = {
-//   none: function(a, b) { return b; },
-//   addition: function(a, b) { return a + b; },
-//   subtraction: function(a, b) { return a - b; },
-//   multiply: function(a, b) { return a * b; },
-//   divide: function(a, b) { return a / b; }
-// };
 
-// function operate(command) {
-//   var display = document.getElementById('result-display');
-//   calculate();
-//   previousNum = display.value;
-//   if (operations.hasOwnProperty(command))
-//     operation = operations[command];
+
+
+// function operate() {
+//   $("#add").click(function() {
+//     operation = "addition";
+//     previousNum = currentNum;
+//     currentNum = "0";
+
+//   });
+//   $("#subtract").click(function() {
+//     operation = "subtraction";
+//     previousNum = currentNum;
+//     currentNum = "0";
+//   });
+//   $("#multiply").click(function() {
+//     operation = "multiplication";
+//     previousNum = currentNum;
+//     currentNum = "0";
+//   });
+//   $("#divide").click(function() {
+//     operation = "division";
+//     previousNum = currentNum;
+//     currentNum = "0";
+//   });
 // }
+
 
 // function calculate() {
-//   var display = document.getElementById('result-display');
-//   display.value = operation(+previousNum, +display.value);
-//   operation = operations.none;
+//   // calculate result when equal sign is pressed
+//   $("#equals").click(function() {
+//     if (operation === "addition"){
+//       addition(parseInt(previousNum), parseInt(currentNum));
+//       currentNum = result;
+//       document.getElementById("result-display").value = result;
+//     } else if (operation === "subtraction"){
+//       subtraction(parseInt(previousNum), parseInt(currentNum));
+//       currentNum = result;
+//       document.getElementById("result-display").value = result;
+//     } else if (operation === "multiplication"){
+//       multiply(parseInt(previousNum), parseInt(currentNum));
+//       currentNum = result;
+//       document.getElementById("result-display").value = result;
+//     } else if (operation === "division"){
+//       divide(parseInt(previousNum), parseInt(currentNum));
+//       currentNum = result;
+//       document.getElementById("result-display").value = result;
+//     }
+//   });
+
 // }
-
-function operate() {
-  $("#add").click(function() {
-    operation = "addition";
-    previousNum = currentNum;
-    currentNum = "0";
-
-    // addition(parseInt(previousNum), parseInt(currentNum));
-    // currentNum = toString(result);
-  });
-  $("#subtract").click(function() {
-    operation = "subtraction";
-    previousNum = currentNum;
-    currentNum = "0";
-  });
-  $("#multiply").click(function() {
-    operation = "multiplication";
-    previousNum = currentNum;
-    currentNum = "0";
-  });
-  $("#divide").click(function() {
-    operation = "division";
-    previousNum = currentNum;
-    currentNum = "0";
-  });
-}
-
-
-function calculate() {
-  // calculate result when equal sign is pressed
-  $("#equals").click(function() {
-    if (operation === "addition"){
-      addition(parseInt(previousNum), parseInt(currentNum));
-      currentNum = result;
-      document.getElementById("result-display").value = result;
-    } else if (operation === "subtraction"){
-      subtraction(parseInt(previousNum), parseInt(currentNum));
-      currentNum = result;
-      document.getElementById("result-display").value = result;
-    } else if (operation === "multiplication"){
-      multiply(parseInt(previousNum), parseInt(currentNum));
-      currentNum = result;
-      document.getElementById("result-display").value = result;
-    } else if (operation === "division"){
-      divide(parseInt(previousNum), parseInt(currentNum));
-      currentNum = result;
-      document.getElementById("result-display").value = result;
-    }
-  });
-
-}
 
 
 function addition(x, y) {
@@ -306,10 +319,11 @@ clearDisplay();
 addNum();
 addDecimal();
 positiveNegative();
-operate();
-calculate();
+// operate();
+// calculate();
 percentage();
 chainOperations();
+calculateResult();
 
 // });
 
